@@ -1,10 +1,18 @@
 import React, { useState } from 'react';
+import {
+  AccordianContext,
+  AccordianItemContext,
+  useAccordian,
+  useAccordianItem,
+} from './AccordianContext';
 
-export const AccordianToggle = ({ id, handlePanelActive, children }: any) => {
-  const handleClick = () => {
-    console.log(id, handlePanelActive);
-    handlePanelActive(id);
-  };
+type ActivePanel = '0' | '1' | '2';
+type handleClickActiveState = React.Dispatch<React.SetStateAction<ActivePanel>>;
+
+export const AccordianToggle = ({ children }: any) => {
+  const { handlePanelActive } = useAccordian();
+  const { id } = useAccordianItem();
+
   return (
     <button
       style={{
@@ -14,14 +22,17 @@ export const AccordianToggle = ({ id, handlePanelActive, children }: any) => {
         textAlign: 'left',
         padding: '0px 20px',
       }}
-      onClick={() => handleClick()}
+      onClick={() => handlePanelActive(id)}
     >
       {children}
     </button>
   );
 };
 
-export const AccordianPanel = ({ id, activePanel, children }: any) => {
+export const AccordianPanel = ({ children }: any) => {
+  const { activePanel } = useAccordian();
+  const { id } = useAccordianItem();
+
   if (id !== activePanel) return null;
   return (
     <div
@@ -34,37 +45,29 @@ export const AccordianPanel = ({ id, activePanel, children }: any) => {
     </div>
   );
 };
-export const AccordianItem = ({
-  id,
-  activePanel,
-  handlePanelActive,
-  children,
-}: any) => {
+export const AccordianItem = ({ id, children }: any) => {
+  const value = {
+    id: id,
+  };
   return (
-    <div>
-      {React.Children.map(children, (child) => {
-        return React.cloneElement(child, {
-          id,
-          activePanel,
-          handlePanelActive: handlePanelActive,
-        });
-      })}
-    </div>
+    <AccordianItemContext.Provider value={value}>
+      <div>{children}</div>
+    </AccordianItemContext.Provider>
   );
 };
 
 const Accordian = ({ children }: any) => {
-  const [activePanel, setActivePanel] = useState(null);
+  const [activePanel, setActivePanel] = useState<any>('0');
+
+  const value = {
+    activePanel,
+    handlePanelActive: setActivePanel,
+  };
 
   return (
-    <div>
-      {React.Children.map(children, (child) => {
-        return React.cloneElement(child, {
-          activePanel,
-          handlePanelActive: setActivePanel,
-        });
-      })}
-    </div>
+    <AccordianContext.Provider value={value}>
+      <div>{children}</div>
+    </AccordianContext.Provider>
   );
 };
 export default Accordian;
