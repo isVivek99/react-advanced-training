@@ -8,11 +8,19 @@ import Accordian, {
 const PageOne = () => {
   return (
     <div>
-      PageOne
+      <br />
       <Accordian>
-        <AccordianItem>
-          <AccordianPanel>item one </AccordianPanel>
-          <AccordianToggle>toggle item</AccordianToggle>
+        <AccordianItem id='1'>
+          <AccordianToggle>toggle item one</AccordianToggle>
+          <AccordianPanel>item one content</AccordianPanel>
+        </AccordianItem>
+      </Accordian>
+      {/*  */}
+      <br />
+      <Accordian>
+        <AccordianItem id='2'>
+          <AccordianToggle>toggle item two</AccordianToggle>
+          <AccordianPanel>item two cotent</AccordianPanel>
         </AccordianItem>
       </Accordian>
     </div>
