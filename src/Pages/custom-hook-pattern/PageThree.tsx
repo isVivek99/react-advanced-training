@@ -24,22 +24,20 @@ const PageThree = () => {
   return (
     <div>
       <div className=''>
-        <div className=''>
-          <Counter value={count}>
-            <Decrement
-              icon={'minus'}
-              onClick={handleDecrement}
-              disabled={count === 0}
-            />
-            <Label>Counter</Label>
-            <Count max={10} />
-            <Increment
-              icon='plus'
-              onClick={handleClickIncrement}
-              disabled={count === MAX_COUNT}
-            />
-          </Counter>
-        </div>
+        <Counter value={count}>
+          <Decrement
+            icon={'minus'}
+            onClick={handleDecrement}
+            disabled={count === 0}
+          />
+          <Label>Counter</Label>
+          <Count max={10} />
+          <Increment
+            icon='plus'
+            onClick={handleClickIncrement}
+            disabled={count === MAX_COUNT}
+          />
+        </Counter>
       </div>
     </div>
   );

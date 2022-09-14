@@ -2,8 +2,6 @@ import React from 'react';
 import { CounterContext, useCounterContext } from './CounterContext';
 
 export const Counter = ({ value, onChange, children }: any) => {
-  //   const [count, setCount] = React.useState<any>(0);
-
   const [maxCount, setMaxCount] = React.useState<any>(100);
   const [minCount, setMinCount] = React.useState<any>(0);
 
